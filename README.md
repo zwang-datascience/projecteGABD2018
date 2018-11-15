@@ -12,6 +12,31 @@
 
 ## Usage
 
+```
+{
+"dbms" :{"oracle": {"username" : "<ORACLE_USER>",
+			"sid": "ee.oracle.docker",
+			"servers":{ "0": { "ssh" : {"username": "student",
+						"hostname": "dcccluster.uab.es",
+ 						"port": "<YOUR_SSH_IP>"},
+					"hostname" : "oracle-1.grup<YOUR_GROUP_NUMBER>.gabd",
+					"port" : "1521"
+					}
+			}
+		},
+		"mongodb": {"username" : "<MongoDB_USER>",
+			"db": "<YOUR_DB>",
+			"servers":{ "0": { "ssh" : {"username": "student",
+						"hostname": "dcccluster.uab.es",
+ 						"port": "<YOUR_SSH_IP>"},
+					"hostname" : "main.grup<YOUR_GROUP_NUMBER>.gabd",
+					"port" : "27017"
+					}
+			}}
+	}
+   }
+```
+
 * To insert the __Iris__ dataset from the __UCI__ repository into an __Oracle__ DBMS
 
 ```
@@ -42,7 +67,11 @@
  python src/insertData.py -h
 ```
 
+* To run experiments on synthetic data withour DBMS connexion using the DMOD method with parameter k=6:
+```
+python src/testOutlierDetector.py  -m DMOD -p "{'k':3}"
+```
 
 ## TODO
 
-- [ ] Validar connexió a MongoDB.
+- [x] Validar connexió a MongoDB.
