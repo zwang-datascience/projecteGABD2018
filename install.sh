@@ -1,8 +1,6 @@
-virtualenv-2.7 -p python2 env
-source venv/bin/activate
+virtualenv-2.7 -p python env
+source env/bin/activate
 
-cd src
-pip install -r requirements.txt
-pip install cx_Oracle
-pip install pymongo
-cd ..
+pip install -r src/requirements.txt
+
+deactivate
