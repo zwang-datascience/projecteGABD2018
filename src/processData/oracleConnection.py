@@ -154,7 +154,7 @@ class oracleConnexion(nc.noConnexion):
 
 
     #TODO: Substituir aquest codi per un acces a la BD que retorni el tipus de datset: vector o image.
-    type = { 'iris': "vector" , 'letter-recognition': "vector", 'breast-cancer' : "vector" }
+    type = { 'iris': "vector" , 'letter-recognition': "vector", 'breast-cancer' : "vector" , "synthetic data": "vector"}
 
 
     # Caldria executar un codi d'aquest estil
@@ -179,6 +179,7 @@ class oracleConnexion(nc.noConnexion):
     :param classList:
     :return:
     '''
+
 
     res = self.cursor.callfunc("gabd.loadVectorData", cx_Oracle.CURSOR, [nameDataset])
 
@@ -232,11 +233,14 @@ class oracleConnexion(nc.noConnexion):
 
   def loadData(self,nameDataset, data):
 
-    if data.type == "vector":
-      features, classIds = self.__loadVectorData(nameDataset, data)
+    if nameDataset.lower() == "synthetic data":
+        features, classIds = u.generateSyntheticData()
+    else:
+        if data.type == "vector":
+            features, classIds = self.__loadVectorData(nameDataset, data)
 
-    if data.type == "image":
-        features, classIds = self.__loadImageData(nameDataset, data)
+        if data.type == "image":
+            features, classIds = self.__loadImageData(nameDataset, data)
 
     return features, classIds
 

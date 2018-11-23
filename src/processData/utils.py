@@ -7,26 +7,34 @@ Created on Jun 12, 2018
 '''
 
 
+import numpy as np
+from collections import namedtuple
 
 
 
+def generateSyntheticData( numSamples=1000, numDims = 6):
 
-def generateSyntheticData( numSamples=10, numDims = 4):
 
-    data = np.random.rand(numSamples/2,numDims)
+    numClusters = 2
 
-    data = np.vstack( (data, np.sqrt(numDims/2) +  np.random.rand(numSamples/2,numDims)))
+    fila = namedtuple("fila", "id features")
 
-    A = dist.squareform(1/(dist.pdist(data[:,:numDims/2])+.1))
-    A = A*(A>=1)
+    ids = {}
+    inici = 0
+    for j in range(0, numClusters):
+      ids[str(j)] = range(inici, inici + numSamples / numClusters)
+      inici = inici + numSamples / numClusters
+      data = np.random.rand(numSamples / numClusters, numDims)
+      data = np.vstack((data, j * np.sqrt(numDims) + np.random.rand(numSamples / numClusters, numDims)))
 
-    permuta = np.random.randint(0,numSamples/2,2) + [0,numSamples/2]
+    # creem l'estructura tabular per emular el resultat d'una query en una BD
+    taula = []
+    for id in range(0, numSamples):
+      tupla = fila(id=id, features=data[id, :].tolist())
+      taula.append(tupla)
 
-    data2 = data[:,numDims/2:]
-    data2[permuta,:] = data2[permuta[::-1],:]
 
-    B = dist.squareform(1/(dist.pdist(data2)+.1))
-    B = B*(B>=1)
+    return taula, ids
 
 def generateCode( method, params ):
 

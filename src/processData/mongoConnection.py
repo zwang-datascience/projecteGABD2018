@@ -507,11 +507,14 @@ class mongoConnexion(nc.noConnexion):
 
   def loadData(self,nameDataset, data):
 
-    if data.type == "vector":
-      features, classIds = self.__loadVectorData(nameDataset, data)
+    if nameDataset.lower() == "synthetic data":
+        features, classIds = u.generateSyntheticData()
+    else:
+        if data.type == "vector":
+            features, classIds = self.__loadVectorData(nameDataset, data)
 
-    if data.type == "image":
-        features, classIds = self.__loadImageData(nameDataset, data)
+        if data.type == "image":
+            features, classIds = self.__loadImageData(nameDataset, data)
 
     return features, classIds
 

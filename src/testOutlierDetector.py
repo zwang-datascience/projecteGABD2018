@@ -32,13 +32,12 @@ import ast
 import getopt
 import glob
 import json
-import numpy as np
 import os.path
 
 import sys
 
 from pprint import pprint
-from collections import namedtuple
+
 
 
 from scipy.spatial import distance as dist
@@ -94,7 +93,9 @@ def loadData(dbms, nameDataset, params={}):
 
 
     data.type = dbms.getDatasetType(nameDataset)
-    data.features, data.classIds = dbms.loadData(nameDataset, data )
+
+
+    data.features, data.classIds = dbms.loadData(nameDataset, data)
 
 
     return data
