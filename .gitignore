@@ -1,0 +1,8 @@
+/.pydevproject
+*.pyc
+.idea
+.settings
+Mostres.json
+venv
+config-Direct.json
+

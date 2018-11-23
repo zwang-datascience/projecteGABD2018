@@ -1,0 +1,37 @@
+{
+"dbms" :{"oracle": {"username" : "GestorDades",
+			"sid": "ee.oracle.docker",
+			"servers":{ "0": { "ssh" : {"username": "student",
+										"hostname": "dcccluster.uab.es",
+ 										"port": "52400"},
+							"hostname" : "oracle-1.docent00.gabd",
+							"port" : "1521"
+					}
+			}
+		},
+		"mongodb": {"username" : "developer",
+			"db": "outliers",
+			"servers":{ "0": { "ssh" : {"username": "student",
+										"hostname": "dcccluster.uab.es",
+ 										"port": "52400"},
+							"hostname" : "main.docent00.gabd",
+							"port" : "27017"
+					}
+			}}
+	},
+"UCI" : { "feat_size": "8", "type": "d" , "datasets" : {"iris" : {"k":"3"},
+														"ionosphere" : {"k":"2"},
+                                                        "letter-recognition" : {"k": "26", "label_pos":"0" },
+														"breast-cancer" : {"k":"2" }}},
+  "MIRFLICKR": {
+    "feat_size": "4",
+    "type": "f",
+    "layers": [
+      "Visual"
+    ],
+    "classList": [
+      "structured",
+      "plaint_life"
+    ]
+  }
+}

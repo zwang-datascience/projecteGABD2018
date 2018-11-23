@@ -1,0 +1,6 @@
+cx_Oracle
+pymongo
+sshtunnel
+scipi
+sklearn
+networkx
