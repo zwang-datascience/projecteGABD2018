@@ -87,8 +87,12 @@ class oracleConnexion(nc.noConnexion):
 
         DSN =  "{}/{}@localhost:{}/{}".format(cfg.username,cfg.password,sshParams["port"],cfg.sid)
 
-        if "password" in sshParams and sshParams["password"] == "":
+        if "password" in sshParams:
+          if sshParams["password"] == "":
+            sshParams["password"] = raw_input("Password de l'usuari {} a {}: ".format(sshParams["username"], host["hostname"]))
+        else:
           sshParams["password"] = raw_input("Password de l'usuari {} a {}: ".format(sshParams["username"], host["hostname"]))
+
 
         self.server = SSHTunnelForwarder((sshParams["hostname"], int(sshParams["port"])),
                                     ssh_username=sshParams["username"],
