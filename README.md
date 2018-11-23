@@ -13,7 +13,7 @@
 ## Usage
 
 
-Edit the config file: __configImport.json__ and modify the connection information:
+Edit the config file: __configImport.json__ and __config.json__ modify the connection information:
 ```
 {
 "dbms" :{"oracle": {"username" : "<ORACLE_USER>",
@@ -68,6 +68,7 @@ Then run the scripts as the following examples:
 * To see other parameters and options (--help):
 ```
  python src/insertData.py -h
+ python src/testOutlierDetector.py -h 
 ```
 
 
