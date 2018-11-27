@@ -107,7 +107,7 @@ class mongoConnexion(nc.noConnexion):
       """
       collectionName="Datasets"
 
-      collection = self.db[collectionName]
+      collection = self.bd[collectionName]
 
       """
       filtre per a la query
@@ -211,7 +211,7 @@ class mongoConnexion(nc.noConnexion):
     """
     El següent bucle recorre la carpeta de imatges i extreu la id de la imatge a partir del nom
     """
-    collection = self.db["Mostres"]
+    collection = self.bd["Mostres"]
     listImages = glob.glob(dirImages + '/*' + imageExt)
     for imageName in listImages:
         nom, _ = os.path.splitext(os.path.basename(imageName))
@@ -223,7 +223,7 @@ class mongoConnexion(nc.noConnexion):
         collection.update({"Dataset": dataset, "id": data["image_id"]},
                       {"Dataset": dataset, "id": data["image_id"], "name": data["name"]}, upsert=True)
 
-    self.db["Datasets"].insert_one({"name": dataset, "total": len(listImages)})
+    self.bd["Datasets"].insert_one({"name": dataset, "total": len(listImages)})
     # load image annotation
     wd = dataDir + '/' + labels + '/'
     fileLabels = glob.glob(wd + '*' + labelsExt)

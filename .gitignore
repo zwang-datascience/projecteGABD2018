@@ -3,6 +3,6 @@
 .idea
 .settings
 Mostres.json
-venv
-config-Direct.json
+env
+*.json
 
