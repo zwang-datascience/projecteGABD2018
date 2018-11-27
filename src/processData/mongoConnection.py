@@ -335,7 +335,7 @@ class mongoConnexion(nc.noConnexion):
     #TODO: SESSIO 15 Busca a la col·leccio si el document hi és.
     res = []
 
-    if res.count()>0:
+    if False: #res.count() > 0:
       idEM = res[0]["_id"]
     else:
       #TODO: SESSIO 15 Si no hi és, insereu-lo
@@ -437,7 +437,7 @@ class mongoConnexion(nc.noConnexion):
       res = []
       # TODO: SESSIÓ 15: Icarregueu els outliers dels datasets d'imatges  (MIRFLICKR)
 
-    numOutliers =res.count()
+    numOutliers = 0 # UNCOMMENT THIS: res.count()
     generateOutliersFlag = numTotalOutliers != numOutliers
     outliers = {}
 
