@@ -44,10 +44,10 @@ class OutlierDetector(object):
 
     def __generateClassOutlier(self,data, IdsList, ratio=0.05):
 
-        # numViews = len(data)
+        numViews = len(data)
 
-        # keys = IdsList.keys()
         len_class = [len(IdsList[x]) for x in IdsList]
+
         total = sum(len_class)
 
         if isinstance(ratio, list):
@@ -57,10 +57,12 @@ class OutlierDetector(object):
 
         else:
             numOutliers = int(round(total * ratio / 2.0))
-            idClasses = random.sample(range(len(len_class)), 2)
-            rid = np.zeros((numOutliers, len(len_class)))
 
-            for i, l in enumerate(IdsList):
+            idClasses = {x[0]:i for i,x in enumerate(sorted(IdsList.items())) if len(x[1]) > numOutliers}
+
+            rid = np.zeros((numOutliers, len(idClasses)))
+
+            for l,i in idClasses.items():
                 rid[:, i] = random.sample(IdsList[l], numOutliers)
 
             rid = rid.astype(int)
@@ -70,19 +72,16 @@ class OutlierDetector(object):
         outliersGTIdx = []
         for i in range(numOutliers):
             currentView = 0  ##random.randint(0,numViews-1)
-            idClasses = random.sample(range(len(len_class)), 2)
-            features = data[currentView][rid[i, idClasses[0]]].features
-            data[currentView][rid[i, idClasses[0]]] = fila(id=data[currentView][rid[i, idClasses[0]]].id,
-                                                           features=data[currentView][rid[i, idClasses[1]]].features)
-            data[currentView][rid[i, idClasses[1]]] = fila(id=data[currentView][rid[i, idClasses[1]]].id,
+            idSamples = random.sample(idClasses.values(), 2)
+            features = data[currentView][rid[i, idSamples[0]]].features
+            data[currentView][rid[i, idSamples[0]]] = fila(id=data[currentView][rid[i, idSamples[0]]].id,
+                                                           features=data[currentView][rid[i, idSamples[1]]].features)
+            data[currentView][rid[i, idSamples[1]]] = fila(id=data[currentView][rid[i, idSamples[1]]].id,
                                                            features=features)
-            outliersGTIdx = outliersGTIdx + rid[i, idClasses].tolist()
-            # res.append( idClasses )
+            outliersGTIdx = outliersGTIdx + rid[i, idSamples].tolist()
 
         outliersGTIdx.sort()
 
-        # y = np.zeros(total)
-        # y[outliersGTIdx] = 1
 
         return data, outliersGTIdx
 
