@@ -1,22 +1,22 @@
 {
-"dbms" :{"oracle": {"username" : "OutlierDetector",
-			"password": "<OutlierDetector USER PASSWORD>",
+"dbms" :{"oracle": {"username" : "GestorDades",
+			"password": "GestorDades",
 			"sid": "ee.oracle.docker",
 			"servers":{ "0": { "ssh" : {"username": "student", 
 						"hostname": "dcccluster.uab.es",
- 						"port": "<YOUR PORT>"},
-							"hostname" : "oracle-1.<YOUR GROUP>.gabd",
+ 						"port": "52400"},
+							"hostname" : "oracle-1.docent00.gabd",
 							"port" : "1521"
 			}
 			}
 		},
-		"mongodb": {"username" : "OutlierDetector",
-			"password": "<OutlierDetector USER PASSWORD>",
+		"mongodb": {"username" : "developer",
+			"password": "developer",
 			"db": "outliers",
 			"servers":{ "0": { "ssh" : {"username": "student",
 						"hostname": "dcccluster.uab.es",
- 						"port": "<YOUR PORT>"},
-							"hostname" : "main.<YOUR GROUP>.gabd",
+ 						"port": "52400"},
+							"hostname" : "main.docent00.gabd",
 							"port" : "27017"
 					}
 			}}

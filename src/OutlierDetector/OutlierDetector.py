@@ -56,29 +56,29 @@ class OutlierDetector(object):
 
 
         else:
-            numOutliers = int(round(total * ratio / 2.0))
+          numOutliers = int(round(total * ratio / 2.0))
 
-            idClasses = {x[0]:i for i,x in enumerate(sorted(IdsList.items())) if len(x[1]) > numOutliers}
+          idClasses = [x[0] for x in sorted(IdsList.items()) if len(x[1]) > numOutliers]
 
-            rid = np.zeros((numOutliers, len(idClasses)))
+          rid = np.zeros((numOutliers, len(idClasses)))
 
-            for l,i in idClasses.items():
-                rid[:, i] = random.sample(IdsList[l], numOutliers)
+          for i, l in enumerate(idClasses):
+            rid[:, i] = random.sample(IdsList[l], numOutliers)
 
-            rid = rid.astype(int)
+          rid = rid.astype(int)
 
         fila = namedtuple("fila", "id features")
 
         outliersGTIdx = []
         for i in range(numOutliers):
-            currentView = 0  ##random.randint(0,numViews-1)
-            idSamples = random.sample(idClasses.values(), 2)
-            features = data[currentView][rid[i, idSamples[0]]].features
-            data[currentView][rid[i, idSamples[0]]] = fila(id=data[currentView][rid[i, idSamples[0]]].id,
-                                                           features=data[currentView][rid[i, idSamples[1]]].features)
-            data[currentView][rid[i, idSamples[1]]] = fila(id=data[currentView][rid[i, idSamples[1]]].id,
-                                                           features=features)
-            outliersGTIdx = outliersGTIdx + rid[i, idSamples].tolist()
+          currentView = 0  ##random.randint(0,numViews-1)
+          idSamples = random.sample(range(len(idClasses)), 2)
+          features = data[currentView][rid[i, idSamples[0]]].features
+          data[currentView][rid[i, idSamples[0]]] = fila(id=data[currentView][rid[i, idSamples[0]]].id,
+                                                         features=data[currentView][rid[i, idSamples[1]]].features)
+          data[currentView][rid[i, idSamples[1]]] = fila(id=data[currentView][rid[i, idSamples[1]]].id,
+                                                         features=features)
+          outliersGTIdx = outliersGTIdx + rid[i, idSamples].tolist()
 
         outliersGTIdx.sort()
 
